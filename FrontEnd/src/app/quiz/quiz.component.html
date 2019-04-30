@@ -1,0 +1,100 @@
+<div class="progress-bar">
+  <div class="progress-bar-inner" [style.width.%]="displayProgress()"></div>
+</div>
+<ng-container *ngIf="showIntro">
+  <h2 class="question-title img-start">
+    <img [src]="showIntro" title="Introdução">
+  </h2>
+  <div class="question-answer">
+    <ul class="question-answer-list">
+      <li class="answer-item" (click)="start()"><span>Responder</span></li>
+    </ul>
+  </div>
+</ng-container>
+<ng-container *ngIf="loaded && !showIntro">
+  <section class="question-container" *ngIf="quizService.amount" [@questions]="quizService.questionActive">
+    <h2 class="question-title" [innerHTML]="quizService.questionActive.title"></h2>
+    <div class="question-answer" [ngClass]="quizService.questionActive.type">
+      <!-- TYPE TEXT -->
+      <ul class="question-answer-list" *ngIf="quizService.questionActive.type=='text'">
+        <ng-container *ngFor="let answer of quizService.questionActive.answers;let i = index">
+          <li class="answer-item"
+              *ngIf="answer.type !== 'text' && !open">
+            <span
+              (click)="clickAnswer(quizService.questionActive.id,quizService.questionActive.title, answer.description)"
+              [innerHTML]="answer.description"></span>
+          </li>
+          <li class="answer-item" *ngIf="answer.type == 'text'">
+            <span (click)="open=true" [innerHTML]="answer.description"></span>
+            <div *ngIf="open">
+              <textarea autofocus placeholder="Descreva aqui..." class="answer-textarea" rows="10"
+                        [(ngModel)]="quizService.questionActive.answer"></textarea>
+
+              <span *ngIf="!quizService.questionActive.answer">Por favor, preencha o campo</span>
+              <button class="answer-btn"
+                      (click)="clickAnswer(quizService.questionActive.id, quizService.questionActive.title, quizService.questionActive.answer)"
+                      *ngIf="quizService.questionActive.answer">Enviar
+              </button>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+
+      <!-- TYPE NUMBER -->
+      <ul class="question-answer-list" *ngIf="quizService.questionActive.type=='number'">
+        <li class=answer-label>Totalmente insatisfeito</li>
+        <li class="answer-item" *ngFor="let loop of [0,1,2,3,4,5,6,7,8,9,10]">
+          <span
+            (click)="clickAnswer(quizService.questionActive.id, quizService.questionActive.title, loop)">{{loop}}</span>
+        </li>
+        <li class=answer-label>Totalmente satisfeito</li>
+      </ul>
+
+      <!-- TYPE TEXTAREA -->
+      <div class="question-answer-list answer-item" *ngIf="quizService.questionActive.type=='textarea'">
+                <textarea class="answer-textarea" rows="10" placeholder="Descreva aqui..."
+                          [(ngModel)]="quizService.questionActive.answer"></textarea>
+        <span *ngIf="!quizService.questionActive.answer">Por favor, preencha o campo</span>
+        <button class="answer-btn"
+                (click)="clickAnswer(quizService.questionActive.id, quizService.questionActive.title, quizService.questionActive.answer)"
+                *ngIf="quizService.questionActive.answer">Enviar
+        </button>
+      </div>
+
+      <!-- TYPE CHECKBOX -->
+      <div class="question-answer-list" *ngIf="quizService.questionActive.type=='checkbox'">
+        <ul>
+          <li class="answer-item" *ngFor="let answer of quizService.questionActive.answers;let i = index">
+            <label class="container-resposta" [for]="answer.id"> <span [innerHTML]="answer.description"></span>
+              <input type="checkbox" [id]="answer.id" name="checkbox_answer"
+                     (change)="changeCheckbox(answer.description, $event.target.checked)">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+        </ul>
+        <button class="answer-btn"
+                (click)="clickAnswerCheckbox(quizService.questionActive.id, quizService.questionActive.title)">
+          Enviar
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-question-closed question-container" *ngIf="!quizService.questionActive">
+    <div class="question-logo">
+      <img [src]="config.logoUrl" [alt]="config.company">
+    </div>
+    <h2 class="question-title">Pesquisa Encerrada</h2>
+    <div class="question-closed">
+      <p class="question-closed-title"><strong>Prezado Cliente</strong></p>
+      <p class="question-closed-sub-title">Esta pesquisa já foi encerrada. Agradecemos seu interesse.
+        Se você tiver alguma dúvida ou sugestão, por favor, entre em contato com o nosso Departamento de
+        Atendimento ao Cliente.</p>
+      <div class="question-closed-bottom">
+        <p>Atenciosamente,<br><strong><em>{{config.company}}<br>Departamento de Marketing</em></strong></p>
+        <a [href]="'mailto:' + config.emailTo" class="style6">CLIQUE AQUI PARA ENVIAR UM E-MAIL</a>
+      </div>
+    </div>
+  </section>
+<!--  <app-navbar></app-navbar>-->
+</ng-container>

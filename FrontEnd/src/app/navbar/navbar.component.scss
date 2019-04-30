@@ -1,0 +1,77 @@
+@import '~sass/base/variables';
+
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  background-color: rgba($bg-color, 0.7);
+}
+
+.navbar-button {
+  background-color: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    margin-top: 10px;
+    transition: 200ms;
+  }
+
+  &:first-child {
+    svg {
+      margin-left: -4px;
+    }
+  }
+
+  &:last-child {
+    svg {
+      margin-right: -4px;
+    }
+  }
+
+  &:hover {
+    .navbar-button-icon {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  @media (min-width: $screen-sm) {
+    font-size: 16px;
+    padding: 10px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.navbar-button-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  margin-bottom: 5px;
+  transition: 200ms;
+
+  @media (min-width: $screen-sm) {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+}
