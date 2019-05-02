@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {QuizService} from '../shared/quiz.service';
+import {QuizService} from '../services/quiz.service';
 
 import {animate, style, transition, trigger} from '@angular/animations';
 import {Answer, Question} from '../model';
@@ -93,13 +93,17 @@ export class QuizComponent implements OnInit {
       answer: answer,
       question_id: questionId
     };
-    this.quizService.sendAnsers([tmp]);
-    this.quizService.navQuestions('next');
-
-    if (this.quizService.amount <= this.quizService.progress) {
-      clearInterval(this.quizService.timer);
-      this.router.navigate(['/result']);
-    }
+    this.quizService.sendAnswer(tmp).subscribe(data => {
+      console.log(`Resposta: ${data}`);
+      this.quizService.navQuestions('next');
+      if (this.quizService.amount <= this.quizService.progress) {
+        clearInterval(this.quizService.timer);
+        this.router.navigate(['/result']);
+      }
+    }, error => {
+      alert('Erro: Resposta não foi salva!');
+      console.log(error);
+    });
   }
 
   changeCheckbox(value, checked) {

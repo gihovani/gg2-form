@@ -7,6 +7,5 @@ if ($method === 'get') {
     $questions = runSQL($sql);
     print showJson(['data' => $questions]);
 } else {
-    $post = $tableObject->postData();
     print executeSQL();
 }

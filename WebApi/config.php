@@ -8,7 +8,7 @@ define('DB_TYPE_MYSQL', 'MYSQL');
 define('DB_TYPE_SQLITE', 'SQLITE');
 define('DB_TYPE_ACTIVE', DB_TYPE_SQLITE);
 define('NEEDS_UTF8_ENCODE', false);
-define('EMAIL_FROM', 'user@mail.com');
+define('EMAIL_FROM', 'contato@gg2.com.br');
 define('EMAIL_TO', 'contato@gg2.com.br');
 define('EMAIL_SUBJECT', 'Resposta Pesquisa');
 

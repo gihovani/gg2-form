@@ -56,10 +56,11 @@ export class QuizService {
     this.questionActive = this.questions[pos];
   }
 
-  sendAnsers(anwsers: Answer[]) {
-    anwsers.forEach((anwser) => {
-      this.http.post(`${this.rootUrl}/answer.php`, anwser)
-        .subscribe(data => console.log('resposta enviada: ', anwser, data));
-    });
+  sendAnswer(answer: Answer): Observable<any> {
+    return this.http.post(`${this.rootUrl}/answer.php`, answer);
+  }
+
+  sendMail(answers: Answer[]): Observable<any> {
+    return this.http.post(`${this.rootUrl}/email.php`, {answers: answers});
   }
 }

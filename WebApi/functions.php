@@ -85,6 +85,7 @@ function runMySQL($sql)
 
     return $data;
 }
+
 function transformDataObject($object)
 {
     $tmp = [];
@@ -97,6 +98,7 @@ function transformDataObject($object)
     }
     return $tmp;
 }
+
 function showJson($data)
 {
     return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
@@ -113,4 +115,26 @@ function executeSQL($jsonEncode = true)
     ];
 
     return ($jsonEncode) ? showJson($response) : $response;
+}
+
+function sendMail($body, $subject = EMAIL_SUBJECT, $to = EMAIL_TO, $from = EMAIL_FROM)
+{
+    $message = '<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+  <title>' . $subject . '</title>
+</head>
+<body>' . $body . '</body>
+</html>';
+    $headers = [
+        'MIME-Version: 1.0',
+        'Content-type: text/html; charset=utf-8',
+        // Additional headers
+        'To: ' . $to,
+        'From: ' . $from
+    ];
+
+    // Mail it
+    return mail($to, $subject, $message, implode(PHP_EOL, $headers));
 }

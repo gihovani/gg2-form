@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {QuizService} from '../shared/quiz.service';
+import {QuizService} from '../services/quiz.service';
 import {Answer} from '../model';
 import {environment} from '../../environments/environment';
 
@@ -12,7 +12,8 @@ import {environment} from '../../environments/environment';
 export class ResultComponent implements OnInit {
   public config = environment;
 
-  constructor(private router: Router, public quizService: QuizService) {
+  constructor(private router: Router,
+              private quizService: QuizService) {
   }
 
   ngOnInit() {
@@ -20,20 +21,24 @@ export class ResultComponent implements OnInit {
       this.router.navigate(['/quiz']);
       return;
     }
-    this.showAnswers();
+    this.sendMail();
   }
 
-  showAnswers() {
+  sendMail() {
     const anwsers = [];
     this.quizService.questions.forEach((i) => {
       const tmp: Answer = {
-        user_id: this.quizService.userId,
-        question_id: this.quizService.surveyId,
+        question_id: i.id,
         question: i.title,
         answer: i.answer,
-        survey_id: i.id
+        user_id: this.quizService.userId,
+        survey_id: this.quizService.surveyId
       };
       anwsers.push(tmp);
+    });
+
+    this.quizService.sendMail(anwsers).subscribe(data => {
+      console.log('email enviado', data);
     });
   }
 }

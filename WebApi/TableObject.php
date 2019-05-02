@@ -58,7 +58,7 @@ class TableObject
         return $ret;
     }
 
-    public function postData()
+    public static function postData()
     {
         return (empty($_POST)) ? json_decode(file_get_contents('php://input'), true) : $_POST;
     }
@@ -113,7 +113,7 @@ class TableObject
         if (empty($id)) {
             return '';
         }
-        $data = $this->_availableParams($this->postData());
+        $data = $this->_availableParams(self::postData());
         $columnsStr = implode(',', $this->_prepareSql($data));
         return sprintf('UPDATE %s SET %s WHERE %s = %d', $this->table, $columnsStr, $this->primaryKey, $id);
     }
@@ -128,7 +128,7 @@ class TableObject
 
     public function post()
     {
-        $data = $this->_availableParams($this->postData());
+        $data = $this->_availableParams(self::postData());
         if (empty($data)) {
             return '';
         }

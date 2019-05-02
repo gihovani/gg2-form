@@ -10,7 +10,7 @@ import {ResultComponent} from './result/result.component';
 import {RouterModule} from '@angular/router';
 import {appRoutes} from './routes';
 import {HttpClientModule} from '@angular/common/http';
-import {QuizService} from './shared/quiz.service';
+import {QuizService} from './services/quiz.service';
 
 @NgModule({
     declarations: [
