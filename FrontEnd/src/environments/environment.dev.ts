@@ -6,7 +6,8 @@ export const environment = {
   apiUrl: 'http://localhost/gg2-form/WebApi/',
   emailTo: 'gihovani@gmail.com',
   logoUrl: 'assets/imgs/logo.png',
-  imgIntro: {
-    1: 'assets/imgs/intro.png'
+  htmlIntro: {
+    1: '<img src="assets/imgs/intro.png" title="Introdução">',
+    3: 'Que bom que te-lo conosco,<br>sua sugestão é muito importante para nós.'
   }
 };

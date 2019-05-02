@@ -54,8 +54,8 @@ export class QuizComponent implements OnInit {
   }
 
   private hasIntro(surveyId): string | null {
-    if (this.config.imgIntro.hasOwnProperty(surveyId)) {
-      return this.config.imgIntro[surveyId];
+    if (this.config.htmlIntro.hasOwnProperty(surveyId)) {
+      return this.config.htmlIntro[surveyId];
     }
     return null;
   }

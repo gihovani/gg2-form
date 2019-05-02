@@ -2,12 +2,10 @@
   <div class="progress-bar-inner" [style.width.%]="displayProgress()"></div>
 </div>
 <ng-container *ngIf="showIntro">
-  <h2 class="question-title img-start">
-    <img [src]="showIntro" title="Introdução">
-  </h2>
+  <h2 class="question-title img-start" [innerHTML]="showIntro"></h2>
   <div class="question-answer">
     <ul class="question-answer-list">
-      <li class="answer-item" (click)="start()"><span>Responder</span></li>
+      <li class="answer-item" (click)="start()"><span>Iniciar Pesquisa</span></li>
     </ul>
   </div>
 </ng-container>
