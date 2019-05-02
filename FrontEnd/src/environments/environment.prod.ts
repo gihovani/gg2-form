@@ -8,6 +8,7 @@ export const environment = {
   logoUrl: 'assets/imgs/logo.png',
   htmlIntro: {
     1: '<img src="assets/imgs/intro.png" title="Introdução">',
-    3: 'Que bom que te-lo conosco,<br>sua sugestão é muito importante para nós.'
+    3: 'Que bom que te-lo conosco,<br>sua sugestão é muito importante para nós.',
+    4: 'Que bom que te-lo conosco,<br>sua sugestão é muito importante para nós.'
   }
 };
