@@ -10,8 +10,7 @@ if ($method === 'get') {
         $sql = $answerObject->get($question['id'], true);
         $questions[$key]['answers'] = runSQL($sql);
     }
-    $response['data'] = $questions;
-    print showJson($response);
+    print showJson(['data' => $questions]);
 } else {
     print executeSQL();
 }
