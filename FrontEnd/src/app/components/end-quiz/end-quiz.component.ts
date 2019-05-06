@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
+import {environment} from '../../../environments/environment';
 import {Router} from '@angular/router';
-import {QuizService} from '../services/quiz.service';
-import {Answer} from '../model';
-import {environment} from '../../environments/environment';
+import {QuizService} from '../../services/quiz.service';
+import {Answer} from '../../model';
 
 @Component({
-  selector: 'app-result',
-  templateUrl: './result.component.html',
-  styleUrls: ['./result.component.scss']
+  selector: 'app-end-quiz',
+  templateUrl: './end-quiz.component.html',
+  styleUrls: ['./end-quiz.component.scss']
 })
-export class ResultComponent implements OnInit {
+export class EndQuizComponent implements OnInit {
   public config = environment;
 
   constructor(private router: Router,

@@ -63,7 +63,7 @@ class TableObject
         return (empty($_POST)) ? json_decode(file_get_contents('php://input'), true) : $_POST;
     }
 
-    public static function clearString($value)
+    public static function encodeString($value)
     {
         if (NEEDS_UTF8_ENCODE) {
             $value = utf8_encode($value);
@@ -71,11 +71,16 @@ class TableObject
         return htmlentities($value);
     }
 
+    public static function decodeString($value)
+    {
+        return html_entity_decode($value);
+    }
+
     private function _prepareSql($data, $format = '%s = "%s"')
     {
         $sql = [];
         foreach ($data as $key => $value) {
-            $sql[] = sprintf($format, $key, self::clearString($value));
+            $sql[] = sprintf($format, $key, self::encodeString($value));
         }
 
         return $sql;

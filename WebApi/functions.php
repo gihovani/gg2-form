@@ -90,6 +90,7 @@ function transformDataObject($object)
 {
     $tmp = [];
     foreach ($object as $key => $value) {
+        $value = TableObject::decodeString($value);
         if (NEEDS_UTF8_ENCODE) {
             $tmp[utf8_encode($key)] = utf8_encode($value);
         } else {

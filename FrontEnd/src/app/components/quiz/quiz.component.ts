@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {QuizService} from '../services/quiz.service';
+import {QuizService} from '../../services/quiz.service';
 
 import {animate, style, transition, trigger} from '@angular/animations';
-import {Answer, Question} from '../model';
-import {environment} from '../../environments/environment';
+import {Answer, Question} from '../../model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-quiz',
@@ -98,7 +98,7 @@ export class QuizComponent implements OnInit {
       this.quizService.navQuestions('next');
       if (this.quizService.amount <= this.quizService.progress) {
         clearInterval(this.quizService.timer);
-        this.router.navigate(['/result']);
+        this.router.navigate(['/end-quiz']);
       }
     }, error => {
       alert('Erro: Resposta não foi salva!');

@@ -56,6 +56,11 @@ export class QuizService {
     this.questionActive = this.questions[pos];
   }
 
+  getAnswer(surveyId): Observable<Answer[]> {
+    return this.http.get<{ data: Answer[] }>(`${this.rootUrl}/answer.php?id=${surveyId}`)
+      .pipe(map(response => response.data));
+  }
+
   sendAnswer(answer: Answer): Observable<any> {
     return this.http.post(`${this.rootUrl}/answer.php`, answer);
   }
