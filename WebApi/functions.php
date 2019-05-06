@@ -64,7 +64,9 @@ function runMySQL($sql)
     global $method;
     $data = [];
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_BASE);
-//    mysqli_set_charset($conn, 'utf8');
+    if (!NEEDS_UTF8_ENCODE) {
+        mysqli_set_charset($conn, 'utf8');
+    }
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
@@ -90,12 +92,9 @@ function transformDataObject($object)
 {
     $tmp = [];
     foreach ($object as $key => $value) {
+        $key = TableObject::decodeString($key);
         $value = TableObject::decodeString($value);
-        if (NEEDS_UTF8_ENCODE) {
-            $tmp[utf8_encode($key)] = utf8_encode($value);
-        } else {
-            $tmp[$key] = $value;
-        }
+        $tmp[$key] = $value;
     }
     return $tmp;
 }

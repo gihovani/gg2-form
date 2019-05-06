@@ -73,6 +73,9 @@ class TableObject
 
     public static function decodeString($value)
     {
+        if (NEEDS_UTF8_ENCODE) {
+            $value = utf8_encode($value);
+        }
         return html_entity_decode($value);
     }
 
@@ -139,7 +142,7 @@ class TableObject
         }
         $columnsStr = implode(',', array_keys($data));
         $values = array_values($data);
-        $values = array_map('TableObject::clearString', $values);
+        $values = array_map('TableObject::encodeString', $values);
         $valuesStr = '"' . implode('","', $values) . '"';
         return sprintf('INSERT INTO %s (%s) VALUES (%s)', $this->table, $columnsStr, $valuesStr);
     }
